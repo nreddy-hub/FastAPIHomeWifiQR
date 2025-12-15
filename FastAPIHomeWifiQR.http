@@ -1,0 +1,6 @@
+@FastAPIHomeWifiQR_HostAddress = http://localhost:5014
+
+GET {{FastAPIHomeWifiQR_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
