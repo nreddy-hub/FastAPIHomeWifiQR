@@ -2,20 +2,20 @@
 
 A modern ASP.NET Core 8 REST API built with **FastEndpoints** for managing WiFi networks and generating QR codes for easy device connections. Features **AWS SQS** and **Lambda** integration for asynchronous event processing.
 
-## ?? Features
+## :rocket: Features
 
-- ? **FastEndpoints** - High-performance endpoint framework
-- ?? **JWT Authentication** - Secure token-based authentication
-- ? **FluentValidation** - Automatic request validation
-- ?? **Swagger/OpenAPI** - Interactive API documentation
-- ?? **Entity Framework Core** - SQL Server database
-- ?? **QR Code Generation** - WiFi QR codes for easy sharing
-- ?? **Bulk Download** - Download multiple QR codes as ZIP
-- ?? **AgileMapper** - High-performance object-to-object mapping
-- ?? **AWS SQS Integration** - Asynchronous message queuing
-- ?? **AWS Lambda Processing** - Serverless event processing
+- :zap: **FastEndpoints** - High-performance endpoint framework
+- :lock: **JWT Authentication** - Secure token-based authentication
+- :white_check_mark: **FluentValidation** - Automatic request validation
+- :books: **Swagger/OpenAPI** - Interactive API documentation
+- :floppy_disk: **Entity Framework Core** - SQL Server database
+- :iphone: **QR Code Generation** - WiFi QR codes for easy sharing
+- :package: **Bulk Download** - Download multiple QR codes as ZIP
+- :arrows_counterclockwise: **AgileMapper** - High-performance object-to-object mapping
+- :cloud: **AWS SQS Integration** - Asynchronous message queuing
+- :gear: **AWS Lambda Processing** - Serverless event processing
 
-## ??? Architecture
+## :building_construction: Architecture
 
 ```
 .NET 8 API (FastEndpoints)
@@ -37,7 +37,7 @@ A modern ASP.NET Core 8 REST API built with **FastEndpoints** for managing WiFi 
                 ??? Delete message from queue (automatic)
 ```
 
-## ?? API Endpoints
+## :satellite: API Endpoints
 
 ### Authentication
 - `POST /api/auth/login` - Login with username/password to get JWT token
@@ -49,7 +49,7 @@ A modern ASP.NET Core 8 REST API built with **FastEndpoints** for managing WiFi 
 - `GET /api/wifi/{id}/qr` - Download QR code PNG
 - `POST /api/wifi/bulk-qr` - Download multiple QR codes as ZIP
 
-## ??? Tech Stack
+## :hammer_and_wrench: Tech Stack
 
 ### Backend
 - **.NET 8** - Latest .NET framework
@@ -67,7 +67,7 @@ A modern ASP.NET Core 8 REST API built with **FastEndpoints** for managing WiFi 
 - **CloudWatch** - Logging and monitoring
 - **IAM** - Identity and access management
 
-## ?? Getting Started
+## :dart: Getting Started
 
 ### Prerequisites
 
@@ -143,7 +143,7 @@ A modern ASP.NET Core 8 REST API built with **FastEndpoints** for managing WiFi 
    
    Navigate to: http://localhost:5014/swagger
 
-## ?? Authentication
+## :lock: Authentication
 
 The API uses JWT (JSON Web Token) authentication.
 
@@ -180,13 +180,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Default Credentials
 
-?? **For development only:**
+:warning: **For development only:**
 - Username: `admin`
 - Password: `password123`
 
 **Important:** Change these in production!
 
-## ?? Example Usage
+## :memo: Example Usage
 
 ### Create WiFi Network
 
@@ -215,7 +215,7 @@ Content-Type: application/json
 }
 ```
 
-? **When SQS is enabled:** A message is automatically sent to AWS SQS for asynchronous processing!
+:sparkles: **When SQS is enabled:** A message is automatically sent to AWS SQS for asynchronous processing!
 
 ### Download QR Code
 
@@ -226,7 +226,7 @@ Authorization: Bearer YOUR_TOKEN_HERE
 
 Returns a PNG image that devices can scan to connect to the WiFi network.
 
-## ?? AWS Integration
+## :cloud: AWS Integration
 
 ### SQS Message Queue
 
@@ -250,10 +250,10 @@ When a WiFi QR code is created, the API sends an event message to Amazon SQS:
 ### Lambda Function Processing
 
 The Lambda function automatically processes messages from SQS and can:
-- ?? Send email notifications
-- ?? Update analytics databases
-- ?? Trigger other workflows
-- ?? Log events to CloudWatch
+- :email: Send email notifications
+- :bar_chart: Update analytics databases
+- :bell: Trigger other workflows
+- :pencil: Log events to CloudWatch
 
 ### Setup AWS Services
 
@@ -279,7 +279,7 @@ For complete AWS setup instructions, see [AWS SQS Lambda Guide](AWS_SQS_LAMBDA_G
      --event-source-arn arn:aws:sqs:REGION:ACCOUNT:wifi-qr-queue
    ```
 
-## ? Validation Rules
+## :white_check_mark: Validation Rules
 
 ### WiFi Networks
 - SSID: Required, max 32 characters
@@ -292,7 +292,7 @@ For complete AWS setup instructions, see [AWS SQS Lambda Guide](AWS_SQS_LAMBDA_G
 - Minimum: 1 network
 - Maximum: 50 networks per request
 
-## ?? Project Structure
+## :file_folder: Project Structure
 
 ```
 FastAPIHomeWifiQR/
@@ -324,7 +324,7 @@ FastAPIHomeWifiQR/
 ??? appsettings.json
 ```
 
-## ?? Documentation
+## :book: Documentation
 
 - [AgileMapper Guide](AGILE_MAPPER_USAGE.md) - Object mapping examples and best practices
 - [AgileMapper Quick Reference](AGILE_MAPPER_QUICK_REFERENCE.md) - Quick mapping patterns
@@ -336,7 +336,7 @@ FastAPIHomeWifiQR/
 - [JWT Authentication Guide](JWT_AUTHENTICATION_GUIDE.md) - JWT setup and usage
 - [Validation Guide](FLUENT_VALIDATION_GUIDE.md) - FluentValidation examples
 
-## ?? Configuration
+## :gear: Configuration
 
 Edit `appsettings.json` to configure:
 
@@ -362,7 +362,7 @@ Edit `appsettings.json` to configure:
 }
 ```
 
-?? **Security:** Never commit `appsettings.json` with production secrets to source control!
+:warning: **Security:** Never commit `appsettings.json` with production secrets to source control!
 
 ### Environment-Specific Configuration
 
@@ -388,7 +388,7 @@ Edit `appsettings.json` to configure:
 }
 ```
 
-## ?? Testing
+## :test_tube: Testing
 
 ### Using Swagger UI
 
@@ -419,7 +419,7 @@ aws sqs send-message \
   --message-body '{"wifiId":"test-123","ssid":"TestNetwork"}'
 ```
 
-## ?? NuGet Packages
+## :package: NuGet Packages
 
 ### Core Packages
 - FastEndpoints (5.30.0)
@@ -435,7 +435,7 @@ aws sqs send-message \
 - QRCoder (1.6.0)
 - AgileObjects.AgileMapper (1.8.1)
 
-## ?? Monitoring & Observability
+## :bar_chart: Monitoring & Observability
 
 ### Application Logs
 - Structured logging with `ILogger`
@@ -454,7 +454,7 @@ aws sqs send-message \
 - **Lambda Errors**
 - **Queue Depth**
 
-## ?? AWS Cost Estimation
+## :moneybag: AWS Cost Estimation
 
 **Monthly costs (approximate):**
 
@@ -467,7 +467,7 @@ aws sqs send-message \
 
 *Free tier covers first 1M Lambda requests and 1M SQS requests*
 
-## ?? Deployment
+## :rocket: Deployment
 
 ### Deploy API
 
@@ -497,7 +497,7 @@ cd WifiQrLambdaProcessor
 dotnet lambda deploy-function WifiQrProcessor -c Release
 ```
 
-## ?? Troubleshooting
+## :bug: Troubleshooting
 
 ### SQS Issues
 
@@ -523,7 +523,7 @@ dotnet lambda deploy-function WifiQrProcessor -c Release
 - Check token format: `Bearer {token}`
 - Validate JWT secret key
 
-## ?? Contributing
+## :handshake: Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
@@ -533,11 +533,11 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## ?? License
+## :page_facing_up: License
 
 This project is licensed under the MIT License.
 
-## ?? Resources
+## :books: Resources
 
 ### .NET & FastEndpoints
 - [FastEndpoints Documentation](https://fast-endpoints.com/)
@@ -553,14 +553,14 @@ This project is licensed under the MIT License.
 - [QRCoder](https://github.com/codebude/QRCoder)
 - [Entity Framework Core](https://docs.microsoft.com/ef/core/)
 
-## ?? Author
+## :busts_in_silhouette: Author
 
 GitHub: [@nreddy-hub](https://github.com/nreddy-hub)
 
 ---
 
-? If you find this project useful, please consider giving it a star!
+:star: If you find this project useful, please consider giving it a star!
 
-?? **Live Demo:** [Coming Soon]
+:link: **Live Demo:** [Coming Soon]
 
-?? **Support:** Open an issue for questions or bug reports
+:email: **Support:** Open an issue for questions or bug reports
