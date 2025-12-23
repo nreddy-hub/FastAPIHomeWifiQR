@@ -311,49 +311,49 @@ For complete AWS setup instructions, see [AWS SQS Lambda Guide](AWS_SQS_LAMBDA_G
 
 ```
 FastAPIHomeWifiQR/
-?
-??? Endpoints/
-?   ??? Auth/
-?   ?   ??? LoginEndpoint.cs
-?   ?   ??? LoginRequest.cs
-?   ?   ??? LoginResponse.cs
-?   ?   ??? LoginRequestValidator.cs
-?   ?
-?   ??? Wifi/
-?       ??? CreateWifiEndpoint.cs
-?       ??? CreateWifiRequest.cs
-?       ??? CreateWifiResponse.cs
-?       ??? CreateWifiRequestValidator.cs
-?       ??? GetAllWifiEndpoint.cs
-?       ??? GetWifiByIdEndpoint.cs
-?       ??? GetWifiByIdRequest.cs
-?       ??? GetWifiByIdRequestValidator.cs
-?       ??? DownloadQrCodeEndpoint.cs
-?       ??? DownloadQrCodeRequest.cs
-?       ??? DownloadQrCodeRequestValidator.cs
-?       ??? DownloadBulkQrCodesEndpoint.cs
-?       ??? DownloadBulkQrCodesRequest.cs
-?       ??? DownloadBulkQrCodesRequestValidator.cs
-?       ??? WifiNetworkResponse.cs
-?
-??? Services/
-?   ??? WifiService.cs
-?   ??? QrCodeService.cs
-?   ??? AgileMapperAdapter.cs
-?   ??? ISqsService.cs
-?   ??? SqsService.cs
-?
-??? Models/
-?   ??? WifiNetwork.cs
-?   ??? WifiQrCreatedMessage.cs
-?
-??? Data/
-?   ??? ApplicationDbContext.cs
-?
-??? Program.cs
-??? appsettings.json
-??? appsettings.Development.json
-??? FastAPIHomeWifiQR.csproj
+|
++-- Endpoints/
+|   +-- Auth/
+|   |   +-- LoginEndpoint.cs
+|   |   +-- LoginRequest.cs
+|   |   +-- LoginResponse.cs
+|   |   +-- LoginRequestValidator.cs
+|   |
+|   +-- Wifi/
+|       +-- CreateWifiEndpoint.cs
+|       +-- CreateWifiRequest.cs
+|       +-- CreateWifiResponse.cs
+|       +-- CreateWifiRequestValidator.cs
+|       +-- GetAllWifiEndpoint.cs
+|       +-- GetWifiByIdEndpoint.cs
+|       +-- GetWifiByIdRequest.cs
+|       +-- GetWifiByIdRequestValidator.cs
+|       +-- DownloadQrCodeEndpoint.cs
+|       +-- DownloadQrCodeRequest.cs
+|       +-- DownloadQrCodeRequestValidator.cs
+|       +-- DownloadBulkQrCodesEndpoint.cs
+|       +-- DownloadBulkQrCodesRequest.cs
+|       +-- DownloadBulkQrCodesRequestValidator.cs
+|       +-- WifiNetworkResponse.cs
+|
++-- Services/
+|   +-- WifiService.cs
+|   +-- QrCodeService.cs
+|   +-- AgileMapperAdapter.cs
+|   +-- ISqsService.cs
+|   +-- SqsService.cs
+|
++-- Models/
+|   +-- WifiNetwork.cs
+|   +-- WifiQrCreatedMessage.cs
+|
++-- Data/
+|   +-- ApplicationDbContext.cs
+|
++-- Program.cs
++-- appsettings.json
++-- appsettings.Development.json
++-- FastAPIHomeWifiQR.csproj
 ```
 
 ### Key Components
