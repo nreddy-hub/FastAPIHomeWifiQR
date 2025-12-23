@@ -6,10 +6,12 @@ namespace FastAPIHomeWifiQR.Endpoints.Wifi;
 public class GetAllWifiEndpoint : EndpointWithoutRequest<List<WifiNetworkResponse>>
 {
     private readonly IWifiService _wifiService;
+    private readonly IObjectMapper _mapper;
 
-    public GetAllWifiEndpoint(IWifiService wifiService)
+    public GetAllWifiEndpoint(IWifiService wifiService, IObjectMapper mapper)
     {
         _wifiService = wifiService;
+        _mapper = mapper;
     }
 
     public override void Configure()
@@ -23,14 +25,8 @@ public class GetAllWifiEndpoint : EndpointWithoutRequest<List<WifiNetworkRespons
     {
         var networks = await _wifiService.GetAllAsync(ct);
 
-        var response = networks.Select(n => new WifiNetworkResponse
-        {
-            Id = n.Id,
-            Ssid = n.Ssid,
-            Password = n.Password,
-            Encryption = n.Encryption,
-            Hidden = n.Hidden
-        }).ToList();
+        // Use AgileMapper to map collection
+        var response = networks.Select(n => _mapper.Map<WifiNetworkResponse>(n)).ToList();
 
         await SendAsync(response, cancellation: ct);
     }

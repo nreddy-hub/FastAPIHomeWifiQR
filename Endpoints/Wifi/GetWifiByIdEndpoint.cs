@@ -6,10 +6,12 @@ namespace FastAPIHomeWifiQR.Endpoints.Wifi;
 public class GetWifiByIdEndpoint : Endpoint<GetWifiByIdRequest, WifiNetworkResponse>
 {
     private readonly IWifiService _wifiService;
+    private readonly IObjectMapper _mapper;
 
-    public GetWifiByIdEndpoint(IWifiService wifiService)
+    public GetWifiByIdEndpoint(IWifiService wifiService, IObjectMapper mapper)
     {
         _wifiService = wifiService;
+        _mapper = mapper;
     }
 
     public override void Configure()
@@ -29,13 +31,8 @@ public class GetWifiByIdEndpoint : Endpoint<GetWifiByIdRequest, WifiNetworkRespo
             return;
         }
 
-        await SendAsync(new WifiNetworkResponse
-        {
-            Id = network.Id,
-            Ssid = network.Ssid,
-            Password = network.Password,
-            Encryption = network.Encryption,
-            Hidden = network.Hidden
-        }, cancellation: ct);
+        // Use AgileMapper to map domain model to response DTO
+        var response = _mapper.Map<WifiNetworkResponse>(network);
+        await SendAsync(response, cancellation: ct);
     }
 }
