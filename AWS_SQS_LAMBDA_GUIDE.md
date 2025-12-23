@@ -9,23 +9,30 @@ This guide explains how to set up Amazon SQS and AWS Lambda to process WiFi QR c
 ## ??? Architecture
 
 ```
-.NET 8 API (FastEndpoints)
-        ?
-        ? Creates WiFi QR Code
-        ?
-        ??? Save to SQL Server Database
-        ?
-        ??? Send Message to SQS Queue
-                ?
-                ? Event Source Mapping
-                ?
-                ??? AWS Lambda Function
-                ?   ?? Process WiFi data
-                ?   ?? Send notifications
-                ?   ?? Update analytics
-                ?   ?? Log events
-                ?
-                ??? Delete message from queue (automatic)
++---------------------------------------+
+|   .NET 8 API (FastEndpoints)         |
++---------------------------------------+
+                |
+                | Creates WiFi QR Code
+                |
+    +-----------+-----------+
+    |                       |
+    v                       v
+SQL Server            AWS SQS Queue
+Database              (Message Queue)
+    |                       |
+    |                       | Event Source Mapping
+    |                       |
+    |                       v
+    |               AWS Lambda Function
+    |                       |
+    |           +-----------+-----------+
+    |           |           |           |
+    |           v           v           v
+    |      Process     Send       Update
+    |       Data    Notifications Analytics
+    |
+    +---> Stores WiFi Network
 ```
 
 ---

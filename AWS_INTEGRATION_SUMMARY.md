@@ -36,13 +36,17 @@ Your WiFi QR Generator now includes **Amazon SQS and AWS Lambda integration** fo
 
 ```
 User creates WiFi QR Code
-        ?
+        |
+        v
 .NET API saves to database
-        ?
+        |
+        v
 .NET API sends message to SQS
-        ?
+        |
+        v
 AWS Lambda receives message
-        ?
+        |
+        v
 Lambda processes message
   - Send notifications
   - Update analytics
