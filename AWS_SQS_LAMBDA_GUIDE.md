@@ -1,12 +1,12 @@
-# ?? AWS SQS and Lambda Integration Guide
+# :books: AWS SQS and Lambda Integration Guide
 
-## ?? Overview
+## :dart: Overview
 
 This guide explains how to set up Amazon SQS and AWS Lambda to process WiFi QR code creation events asynchronously.
 
 ---
 
-## ??? Architecture
+## :building_construction: Architecture
 
 ```
 +---------------------------------------+
@@ -37,7 +37,7 @@ Database              (Message Queue)
 
 ---
 
-## ?? What Was Added
+## :package: What Was Added
 
 ### **.NET API Changes**
 
@@ -57,7 +57,7 @@ Database              (Message Queue)
 
 ---
 
-## ?? Setup Instructions
+## :wrench: Setup Instructions
 
 ### **Step 1: Configure AWS Credentials**
 
@@ -280,7 +280,7 @@ public class WifiQrCreatedMessage
     public bool Hidden { get; set; }
     public DateTime CreatedAt { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
-    public Dictionary<string, string>? Metadata { get; set; }
+    public Dictionary<string, string>:zap: Metadata { get; set; }
 }
 ```
 
@@ -385,7 +385,7 @@ aws lambda create-event-source-mapping \
 
 ---
 
-## ?? Testing
+## :ship: Testing
 
 ### **Test from .NET API:**
 
@@ -435,7 +435,7 @@ aws sqs send-message \
 
 ---
 
-## ?? Monitoring & Debugging
+## :ship: Monitoring & Debugging
 
 ### **CloudWatch Metrics:**
 
@@ -465,7 +465,7 @@ Successfully sent message to SQS. MessageId: xxx, Type: WifiQrCreatedMessage
 
 ---
 
-## ?? IAM Permissions
+## :ship: IAM Permissions
 
 ### **Lambda Execution Role:**
 
@@ -517,7 +517,7 @@ Required permissions:
 
 ---
 
-## ?? Configuration Options
+## :ship: Configuration Options
 
 ### **appsettings.json Settings:**
 
@@ -560,7 +560,7 @@ Required permissions:
 
 ---
 
-## ?? Deployment
+## :ship: Deployment
 
 ### **Deploy .NET API:**
 
@@ -584,7 +584,7 @@ dotnet lambda deploy-function WifiQrProcessor -c Release
 
 ---
 
-## ?? Scaling Considerations
+## :ship: Scaling Considerations
 
 ### **SQS Queue:**
 - **Standard Queue:** Unlimited throughput
@@ -601,7 +601,7 @@ dotnet lambda deploy-function WifiQrProcessor -c Release
 
 ---
 
-## ?? Cost Estimation
+## :ship: Cost Estimation
 
 ### **Monthly Costs (approx):**
 
@@ -616,7 +616,7 @@ dotnet lambda deploy-function WifiQrProcessor -c Release
 
 ---
 
-## ?? Troubleshooting
+## :ship: Troubleshooting
 
 ### **Messages not appearing in queue:**
 1. Check `EnableSqs` setting in appsettings.json
@@ -636,7 +636,7 @@ dotnet lambda deploy-function WifiQrProcessor -c Release
 
 ---
 
-## ?? Additional Resources
+## :ship: Additional Resources
 
 - **AWS SQS Documentation:** https://docs.aws.amazon.com/sqs/
 - **AWS Lambda .NET:** https://docs.aws.amazon.com/lambda/latest/dg/csharp-handler.html
@@ -645,4 +645,4 @@ dotnet lambda deploy-function WifiQrProcessor -c Release
 
 ---
 
-**?? Integration Complete!** Your WiFi QR Generator now sends events to SQS for asynchronous processing!
+**:ship: Integration Complete!** Your WiFi QR Generator now sends events to SQS for asynchronous processing!

@@ -1,18 +1,18 @@
-# ?? AWS SQS + Lambda - Quick Reference
+# :ship: AWS SQS + Lambda - Quick Reference
 
-## ? Quick Setup (5 Steps)
+## :zap: Quick Setup (5 Steps)
 
-### 1?? Configure AWS Credentials
+### 1:ship: Configure AWS Credentials
 ```bash
 aws configure
 ```
 
-### 2?? Create SQS Queue
+### 2:ship: Create SQS Queue
 ```bash
 aws sqs create-queue --queue-name wifi-qr-queue
 ```
 
-### 3?? Update appsettings.json
+### 3:ship: Update appsettings.json
 ```json
 {
   "AWS": {
@@ -25,17 +25,17 @@ aws sqs create-queue --queue-name wifi-qr-queue
 }
 ```
 
-### 4?? Run Your API
+### 4:ship: Run Your API
 ```bash
 dotnet run
 ```
 
-### 5?? Create WiFi QR Code
+### 5:ship: Create WiFi QR Code
 API will automatically send message to SQS!
 
 ---
 
-## ?? Quick Commands
+## :ship: Quick Commands
 
 ### **SQS Commands:**
 ```bash
@@ -95,7 +95,7 @@ aws cloudwatch get-metric-statistics \
 
 ---
 
-## ?? Testing Flow
+## :ship: Testing Flow
 
 ### **Test End-to-End:**
 ```bash
@@ -124,7 +124,7 @@ aws logs tail /aws/lambda/WifiQrProcessor --follow
 
 ---
 
-## ?? Message Format
+## :ship: Message Format
 
 ### **Message Sent to SQS:**
 ```json
@@ -140,7 +140,7 @@ aws logs tail /aws/lambda/WifiQrProcessor --follow
 
 ---
 
-## ?? Key URLs
+## :ship: Key URLs
 
 - **AWS Console SQS:** https://console.aws.amazon.com/sqs/
 - **AWS Console Lambda:** https://console.aws.amazon.com/lambda/
@@ -148,7 +148,7 @@ aws logs tail /aws/lambda/WifiQrProcessor --follow
 
 ---
 
-## ?? Configuration Toggle
+## :ship: Configuration Toggle
 
 ### **Disable SQS (Development):**
 ```json
@@ -174,7 +174,7 @@ aws logs tail /aws/lambda/WifiQrProcessor --follow
 
 ---
 
-## ?? Quick Troubleshooting
+## :ship: Quick Troubleshooting
 
 | Problem | Solution |
 |---------|----------|
@@ -186,7 +186,7 @@ aws logs tail /aws/lambda/WifiQrProcessor --follow
 
 ---
 
-## ?? Support Resources
+## :ship: Support Resources
 
 - **Documentation:** See `AWS_SQS_LAMBDA_GUIDE.md`
 - **AWS Support:** https://console.aws.amazon.com/support/
@@ -194,4 +194,4 @@ aws logs tail /aws/lambda/WifiQrProcessor --follow
 
 ---
 
-**Quick Start:** Configure AWS ? Create Queue ? Update settings ? Run! ??
+**Quick Start:** Configure AWS :zap: Create Queue :zap: Update settings :zap: Run! :ship:
