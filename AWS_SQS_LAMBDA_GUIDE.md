@@ -280,7 +280,7 @@ public class WifiQrCreatedMessage
     public bool Hidden { get; set; }
     public DateTime CreatedAt { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
-    public Dictionary<string, string>:zap: Metadata { get; set; }
+    public Dictionary<string, string>? Metadata { get; set; }
 }
 ```
 
@@ -385,7 +385,7 @@ aws lambda create-event-source-mapping \
 
 ---
 
-## :ship: Testing
+## :test_tube: Testing
 
 ### **Test from .NET API:**
 
@@ -435,7 +435,7 @@ aws sqs send-message \
 
 ---
 
-## :ship: Monitoring & Debugging
+## :bar_chart: Monitoring & Debugging
 
 ### **CloudWatch Metrics:**
 
@@ -465,7 +465,7 @@ Successfully sent message to SQS. MessageId: xxx, Type: WifiQrCreatedMessage
 
 ---
 
-## :ship: IAM Permissions
+## :lock: IAM Permissions
 
 ### **Lambda Execution Role:**
 
@@ -517,7 +517,7 @@ Required permissions:
 
 ---
 
-## :ship: Configuration Options
+## :gear: Configuration Options
 
 ### **appsettings.json Settings:**
 
@@ -560,7 +560,7 @@ Required permissions:
 
 ---
 
-## :ship: Deployment
+## :rocket: Deployment
 
 ### **Deploy .NET API:**
 
@@ -584,7 +584,7 @@ dotnet lambda deploy-function WifiQrProcessor -c Release
 
 ---
 
-## :ship: Scaling Considerations
+## :chart_with_upwards_trend: Scaling Considerations
 
 ### **SQS Queue:**
 - **Standard Queue:** Unlimited throughput
@@ -601,7 +601,7 @@ dotnet lambda deploy-function WifiQrProcessor -c Release
 
 ---
 
-## :ship: Cost Estimation
+## :moneybag: Cost Estimation
 
 ### **Monthly Costs (approx):**
 
@@ -616,7 +616,7 @@ dotnet lambda deploy-function WifiQrProcessor -c Release
 
 ---
 
-## :ship: Troubleshooting
+## :bug: Troubleshooting
 
 ### **Messages not appearing in queue:**
 1. Check `EnableSqs` setting in appsettings.json
@@ -636,7 +636,7 @@ dotnet lambda deploy-function WifiQrProcessor -c Release
 
 ---
 
-## :ship: Additional Resources
+## :books: Additional Resources
 
 - **AWS SQS Documentation:** https://docs.aws.amazon.com/sqs/
 - **AWS Lambda .NET:** https://docs.aws.amazon.com/lambda/latest/dg/csharp-handler.html
@@ -645,4 +645,4 @@ dotnet lambda deploy-function WifiQrProcessor -c Release
 
 ---
 
-**:ship: Integration Complete!** Your WiFi QR Generator now sends events to SQS for asynchronous processing!
+**:tada: Integration Complete!** Your WiFi QR Generator now sends events to SQS for asynchronous processing!
