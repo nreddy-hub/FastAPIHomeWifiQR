@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  wifi-qr-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wifi-qr-api-prod
+    ports:
+      - "80:8080"
+      - "443:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+      # JWT Settings (use secrets in production!)
+      - JwtSettings__SigningKey=${JWT_SIGNING_KEY}
+      - JwtSettings__Issuer=HomeWifiQR
+      - JwtSettings__Audience=HomeWifiQRUsers
+      - JwtSettings__ExpiryMinutes=60
+      # Database Connection
+      - ConnectionStrings__DefaultConnection=${DATABASE_CONNECTION_STRING}
+      # AWS Configuration
+      - AWS__Region=${AWS_REGION}
+      - AWS__SQS__QueueUrl=${AWS_SQS_QUEUE_URL}
+      - AWS__SQS__EnableSqs=true
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    networks:
+      - wifi-qr-network
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  wifi-qr-network:
+    driver: bridge

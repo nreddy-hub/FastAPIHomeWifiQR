@@ -378,3 +378,57 @@ Domain entities and data transfer objects:
 #### Data
 Database context and configuration:
 - **ApplicationDbContext** - EF Core database context
+
+## :rocket: Deployment
+
+### Deploy API
+
+**Docker (Recommended):**
+```bash
+# Quick start with Docker Compose
+docker-compose up -d
+
+# Access Swagger
+open http://localhost:5014/swagger
+```
+See [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md) for complete guide.
+
+**Azure App Service:**
+```bash
+dotnet publish -c Release
+# Deploy via Azure Portal or Azure CLI
+```
+
+**AWS Elastic Beanstalk:**
+```bash
+dotnet publish -c Release
+eb init
+eb create
+```
+
+**Docker Hub:**
+```bash
+docker pull nreddy/wifi-qr-api:latest
+docker run -d -p 5014:8080 nreddy/wifi-qr-api:latest
+```
+
+### Deploy Lambda Function
+
+```bash
+cd WifiQrLambdaProcessor
+dotnet lambda deploy-function WifiQrProcessor -c Release
+```
+
+## :books: Documentation
+
+- **[Docker Deployment Guide](DOCKER_DEPLOYMENT.md)** - Complete Docker containerization guide
+- **[Docker Quick Reference](DOCKER_QUICK_REFERENCE.md)** - Quick Docker commands
+- [AgileMapper Guide](AGILE_MAPPER_USAGE.md) - Object mapping examples and best practices
+- [AgileMapper Quick Reference](AGILE_MAPPER_QUICK_REFERENCE.md) - Quick mapping patterns
+- [AgileMapper Endpoints Summary](AGILE_MAPPER_ENDPOINTS_SUMMARY.md) - Mapping usage across endpoints
+- [AWS SQS Lambda Guide](AWS_SQS_LAMBDA_GUIDE.md) - Complete AWS integration guide
+- [AWS Quick Reference](AWS_QUICK_REFERENCE.md) - Quick AWS commands and tips
+- [AWS Integration Summary](AWS_INTEGRATION_SUMMARY.md) - Integration overview
+- [Migration Guide](MIGRATION_COMPLETE.md) - Controller to FastEndpoints migration
+- [JWT Authentication Guide](JWT_AUTHENTICATION_GUIDE.md) - JWT setup and usage
+- [Validation Guide](FLUENT_VALIDATION_GUIDE.md) - FluentValidation examples

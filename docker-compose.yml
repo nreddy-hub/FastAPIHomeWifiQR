@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  # WiFi QR API Service
+  wifi-qr-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wifi-qr-api
+    ports:
+      - "5014:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      # JWT Settings
+      - JwtSettings__SigningKey=${JWT_SIGNING_KEY:-your-secret-signing-key-change-in-production-min-32-chars}
+      - JwtSettings__Issuer=HomeWifiQR
+      - JwtSettings__Audience=HomeWifiQRUsers
+      - JwtSettings__ExpiryMinutes=60
+      # Database Connection
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=HomeWifiQRDb;User Id=sa;Password=${SQL_PASSWORD:-YourStrong@Passw0rd};TrustServerCertificate=True;
+      # AWS Configuration
+      - AWS__Region=${AWS_REGION:-us-east-1}
+      - AWS__SQS__QueueUrl=${AWS_SQS_QUEUE_URL}
+      - AWS__SQS__EnableSqs=${ENABLE_SQS:-false}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - wifi-qr-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # SQL Server Database
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: wifi-qr-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SQL_PASSWORD:-YourStrong@Passw0rd}
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    networks:
+      - wifi-qr-network
+    restart: unless-stopped
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "${SQL_PASSWORD:-YourStrong@Passw0rd}" -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+volumes:
+  sqlserver-data:
+    driver: local
+
+networks:
+  wifi-qr-network:
+    driver: bridge
