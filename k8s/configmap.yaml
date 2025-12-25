@@ -1,0 +1,16 @@
+# ConfigMap for application configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wifi-qr-api-config
+  namespace: wifi-qr
+  labels:
+    app: wifi-qr-api
+data:
+  ASPNETCORE_ENVIRONMENT: "Production"
+  ASPNETCORE_URLS: "http://+:8080"
+  JwtSettings__Issuer: "HomeWifiQR"
+  JwtSettings__Audience: "HomeWifiQRUsers"
+  JwtSettings__ExpiryMinutes: "60"
+  AWS__Region: "us-east-1"
+  AWS__SQS__EnableSqs: "false"

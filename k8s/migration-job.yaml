@@ -1,0 +1,51 @@
+# Kubernetes Job to run EF Core migrations
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: wifi-qr-db-migration
+  namespace: wifi-qr
+  labels:
+    app: wifi-qr-api
+    component: migration
+spec:
+  template:
+    metadata:
+      labels:
+        app: wifi-qr-api
+        component: migration
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: migration
+        image: nreddy/wifi-qr-api:latest  # Same image as API
+        command:
+        - dotnet
+        - ef
+        - database
+        - update
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          valueFrom:
+            secretKeyRef:
+              name: wifi-qr-api-secrets
+              key: db-connection-string
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      initContainers:
+      - name: wait-for-db
+        image: busybox:1.35
+        command:
+        - sh
+        - -c
+        - |
+          until nc -z sqlserver-service 1433; do
+            echo "Waiting for SQL Server..."
+            sleep 5
+          done
+          echo "SQL Server is ready!"
+  backoffLimit: 3

@@ -1,0 +1,149 @@
+# WiFi QR API Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wifi-qr-api
+  namespace: wifi-qr
+  labels:
+    app: wifi-qr-api
+    version: v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: wifi-qr-api
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: wifi-qr-api
+        version: v1
+    spec:
+      containers:
+      - name: wifi-qr-api
+        image: nreddy/wifi-qr-api:latest  # Update with your image
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        env:
+        # Environment variables from ConfigMap
+        - name: ASPNETCORE_ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: wifi-qr-api-config
+              key: ASPNETCORE_ENVIRONMENT
+        - name: ASPNETCORE_URLS
+          valueFrom:
+            configMapKeyRef:
+              name: wifi-qr-api-config
+              key: ASPNETCORE_URLS
+        - name: JwtSettings__Issuer
+          valueFrom:
+            configMapKeyRef:
+              name: wifi-qr-api-config
+              key: JwtSettings__Issuer
+        - name: JwtSettings__Audience
+          valueFrom:
+            configMapKeyRef:
+              name: wifi-qr-api-config
+              key: JwtSettings__Audience
+        - name: JwtSettings__ExpiryMinutes
+          valueFrom:
+            configMapKeyRef:
+              name: wifi-qr-api-config
+              key: JwtSettings__ExpiryMinutes
+        - name: AWS__Region
+          valueFrom:
+            configMapKeyRef:
+              name: wifi-qr-api-config
+              key: AWS__Region
+        - name: AWS__SQS__EnableSqs
+          valueFrom:
+            configMapKeyRef:
+              name: wifi-qr-api-config
+              key: AWS__SQS__EnableSqs
+        
+        # Secrets
+        - name: JwtSettings__SigningKey
+          valueFrom:
+            secretKeyRef:
+              name: wifi-qr-api-secrets
+              key: jwt-signing-key
+        - name: ConnectionStrings__DefaultConnection
+          valueFrom:
+            secretKeyRef:
+              name: wifi-qr-api-secrets
+              key: db-connection-string
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: wifi-qr-api-secrets
+              key: aws-access-key-id
+              optional: true
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: wifi-qr-api-secrets
+              key: aws-secret-access-key
+              optional: true
+        - name: AWS__SQS__QueueUrl
+          valueFrom:
+            secretKeyRef:
+              name: wifi-qr-api-secrets
+              key: aws-sqs-queue-url
+              optional: true
+        
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        
+        startupProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 0
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 12
+      
+      # Wait for SQL Server to be ready
+      initContainers:
+      - name: wait-for-db
+        image: busybox:1.35
+        command: 
+        - sh
+        - -c
+        - |
+          until nc -z sqlserver-service 1433; do
+            echo "Waiting for SQL Server..."
+            sleep 5
+          done
+          echo "SQL Server is ready!"

@@ -1,0 +1,28 @@
+# Ingress for API (using nginx ingress controller)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wifi-qr-api-ingress
+  namespace: wifi-qr
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+spec:
+  tls:
+  - hosts:
+    - wifi-qr-api.yourdomain.com
+    secretName: wifi-qr-api-tls
+  rules:
+  - host: wifi-qr-api.yourdomain.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: wifi-qr-api-service
+            port:
+              number: 80

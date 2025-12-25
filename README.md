@@ -383,7 +383,20 @@ Database context and configuration:
 
 ### Deploy API
 
-**Docker (Recommended):**
+**Kubernetes (Production):**
+```bash
+# Quick deployment
+kubectl apply -f k8s/
+
+# Check status
+kubectl get pods -n wifi-qr
+
+# Access API
+kubectl port-forward -n wifi-qr svc/wifi-qr-api-service 5014:80
+```
+See [KUBERNETES_DEPLOYMENT.md](KUBERNETES_DEPLOYMENT.md) for complete guide.
+
+**Docker (Recommended for Development):**
 ```bash
 # Quick start with Docker Compose
 docker-compose up -d
@@ -421,6 +434,8 @@ dotnet lambda deploy-function WifiQrProcessor -c Release
 
 ## :books: Documentation
 
+- **[Kubernetes Deployment Guide](KUBERNETES_DEPLOYMENT.md)** - Complete Kubernetes deployment guide
+- **[Kubernetes Quick Reference](KUBERNETES_QUICK_REFERENCE.md)** - Quick kubectl commands
 - **[Docker Deployment Guide](DOCKER_DEPLOYMENT.md)** - Complete Docker containerization guide
 - **[Docker Quick Reference](DOCKER_QUICK_REFERENCE.md)** - Quick Docker commands
 - [AgileMapper Guide](AGILE_MAPPER_USAGE.md) - Object mapping examples and best practices

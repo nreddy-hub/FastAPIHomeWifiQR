@@ -1,0 +1,8 @@
+# Kubernetes Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: wifi-qr
+  labels:
+    name: wifi-qr
+    app: wifi-qr-generator
